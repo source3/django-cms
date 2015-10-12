@@ -429,6 +429,36 @@ You need at least the following :setting:`django:TEMPLATE_CONTEXT_PROCESSORS`::
 
     This setting will be missing from automatically generated Django settings
     files, so you will have to add it.
+    
+.. note:: 
+
+    In Django 1.8, place 'TEMPLATE_CONTEXT_PROCESSSORS' under 'OPTIONS' in 'TEMPLATES':
+
+    TEMPLATES = [
+        {
+            ...
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                #],
+                # added for django-cms
+                #'TEMPLATE_CONTEXT_PROCESSORS' : [
+                          'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                    'django.core.context_processors.i18n',
+                    'django.core.context_processors.request',
+                    'django.core.context_processors.media',
+                    'django.core.context_processors.static',
+                    'sekizai.context_processors.sekizai',
+                    'cms.context_processors.cms_settings',
+                ],
+                ...
+            },
+        },
+    ]
 
 .. warning::
 
@@ -477,6 +507,15 @@ Now add a little magic to the :setting:`django:TEMPLATE_DIRS` section of the fil
         # Life is wonderful!
         os.path.join(BASE_DIR, "templates"),
     )
+    
+.. notes:: In Django 1.8 place 'TEMPLATE_DIRS' in 'TEMPLATES':
+    TEMPLATES = [
+        {
+            ...
+            'DIRS': [os.path.join(BASE_DIR, "templates")],
+            ...
+        },
+    ]
 
 Add at least one template to :setting:`CMS_TEMPLATES`; for example::
 
